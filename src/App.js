@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/periscope">
       <div className="App">
         <main>
           <div className="section" id="index-banner">
