@@ -15,7 +15,8 @@ class AlbumUpload extends Component {
       uploadProgress: {},
       successfullUploaded: false,
       results: {},
-      fileName: ""
+      fileName: "",
+      error: null
     };
 
     this.uploadFiles = this.uploadFiles.bind(this);
@@ -94,12 +95,18 @@ class AlbumUpload extends Component {
             results: response.data,
             successfullUploaded: true,
             fileName: file.name,
-            uploading: false
+            uploading: false,
+            error: null
           });
         })
         .catch(function(response) {
           //handle error
           console.log(response);
+          that.setState({
+            successfullUploaded: false,
+            error: response,
+            uploading: false
+          });
         });
     });
   };
@@ -153,7 +160,13 @@ class AlbumUpload extends Component {
   };
 
   render() {
-    const { results, uploading, successfullUploaded, files } = this.state;
+    const {
+      results,
+      uploading,
+      successfullUploaded,
+      files,
+      error
+    } = this.state;
     return (
       <>
         <h1 className="text-info">Upload an Album</h1>
@@ -187,6 +200,13 @@ class AlbumUpload extends Component {
             <div className="spinner-border text-info" role="status">
               <span className="sr-only">Loading...</span>
             </div>
+          </div>
+        )}
+
+        {error && (
+          <div classname="d-flex justify-content-center">
+            <h3 class="text-danger">An error occurred</h3>
+            <p>{error}</p>
           </div>
         )}
 

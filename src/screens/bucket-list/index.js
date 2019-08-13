@@ -10,7 +10,6 @@ class BucketList extends Component {
   }
 
   componentDidMount() {
-    console.log("laoaddagda");
     const options = {
       url: `${baseUrl}harbourmaster/api/v1/buckets`,
       headers: {
