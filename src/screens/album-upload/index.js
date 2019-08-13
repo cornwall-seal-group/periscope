@@ -190,7 +190,7 @@ class AlbumUpload extends Component {
           </div>
         )}
 
-        <AlbumUploadResults seals={results} />
+        <AlbumUploadResults results={results} />
       </>
     );
   }

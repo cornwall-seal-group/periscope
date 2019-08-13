@@ -3,17 +3,20 @@ import { Link } from "react-router-dom";
 
 export default class AlbumUploadResults extends React.Component {
   render() {
-    const { seals } = this.props;
+    const { results } = this.props;
+    const { processed: seals } = results;
 
-    if (seals.length > 0) {
+    if (Object.keys(seals).length > 0) {
       return (
         <>
           <h2>Seals recorded, click on the links to view the seals images</h2>
           <ul className="list-group">
-            {seals.map(seal => (
-              <Link key={seals} className="list-group-item" to={seals}>
-                {seals.toUpperCase()}
-              </Link>
+            {Object.keys(seals).map(seal => (
+              <li>
+                <Link key={seal} className="list-group-item" to={seals[seal]}>
+                  {seal.toUpperCase()} saved as {seals[seal].toUpperCase()}
+                </Link>
+              </li>
             ))}
           </ul>
         </>
