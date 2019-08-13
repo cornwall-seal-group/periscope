@@ -38,8 +38,7 @@ class FileList extends Component {
     const bucket = this.getBucketName();
     return (
       <>
-        <h1 className="text-info">Periscope - the Seal Viewer</h1>
-        <h2 className="text-info">Seal - {bucket.toUpperCase()}</h2>
+        <h2 className="m-4">Seal - {bucket.toUpperCase()}</h2>
         <Link to="/">Back to all seals</Link>
         {loading && (
           <div className="d-flex justify-content-center">

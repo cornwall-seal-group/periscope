@@ -19,5 +19,6 @@ export default class AlbumUploadResults extends React.Component {
         </>
       );
     }
+    return <div />;
   }
 }
