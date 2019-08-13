@@ -16,7 +16,7 @@ export default class AlbumUploadResults extends React.Component {
                 <Link
                   key={seal}
                   className="list-group-item"
-                  to={`/seal/${seals[seal]}`}
+                  to={`/seal/${seals[seal].toLowerCase()}`}
                 >
                   {seal.toUpperCase()} saved as {seals[seal].toUpperCase()}
                 </Link>
