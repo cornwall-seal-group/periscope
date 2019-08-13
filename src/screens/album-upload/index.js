@@ -4,7 +4,7 @@ import "./upload.css";
 import Progress from "../../components/progress";
 import AlbumUploadResults from "../../components/album-upload-results";
 import Axios from "axios";
-import { baseUrl } from "../../config.json";
+import { baseUrl, apKey } from "../../config.json";
 
 class AlbumUpload extends Component {
   constructor(props) {
@@ -78,9 +78,14 @@ class AlbumUpload extends Component {
 
       Axios({
         method: "post",
-        url: `${baseUrl}/api/guess-image`,
+        url: `${baseUrl}/album-parser/api/v1/album/process`,
         data: formData,
-        config: { headers: { "Content-Type": "multipart/form-data" } }
+        config: {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "x-api-key": apKey
+          }
+        }
       })
         .then(function(response) {
           that.setState({

@@ -10,6 +10,7 @@ class BucketList extends Component {
   }
 
   componentDidMount() {
+    console.log("laoaddagda");
     const options = {
       url: `${baseUrl}harbourmaster/api/v1/buckets`,
       headers: {
@@ -28,8 +29,6 @@ class BucketList extends Component {
     const { buckets, loading } = this.state;
     return (
       <>
-        <h1 className="text-info">Periscope - the Seal Viewer</h1>
-
         {loading && (
           <div className="d-flex justify-content-center">
             <div className="spinner-border text-info" role="status">
@@ -40,13 +39,13 @@ class BucketList extends Component {
 
         {!loading && buckets.length > 0 && (
           <>
-            <h2>Pick a Seal</h2>
+            <h4 className="m-4">Pick a seal to view its images</h4>
             <ul className="list-group">
               {buckets.map(bucket => (
                 <Link
                   key={bucket.name}
                   className="list-group-item"
-                  to={bucket.name}
+                  to={`seal/${bucket.name}`}
                 >
                   {bucket.name.toUpperCase()}
                 </Link>
