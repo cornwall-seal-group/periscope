@@ -78,7 +78,7 @@ class AlbumUpload extends Component {
 
       Axios({
         method: "post",
-        url: `${remoteUrl}/album-parser/api/v1/album/process`,
+        url: `${remoteUrl}album-parser/api/v1/album/process`,
         data: formData,
         config: {
           headers: {
