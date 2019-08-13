@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export default class AlbumUploadResults extends React.Component {
   render() {
-    const { results } = this.props;
-    const { processed: seals } = results;
+    const { results = {} } = this.props;
+    const seals = results["processed"] || {};
 
     if (Object.keys(seals).length > 0) {
       return (
