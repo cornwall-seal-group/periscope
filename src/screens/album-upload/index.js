@@ -82,9 +82,11 @@ class AlbumUpload extends Component {
         data: formData,
         config: {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "x-api-key": apKey
+            "Content-Type": "application/x-www-form-urlencoded"
           }
+        },
+        headers: {
+          "x-api-key": apKey
         }
       })
         .then(function(response) {
