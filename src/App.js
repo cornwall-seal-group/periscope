@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Link } from "react-router-dom";
+import { Route, HashRouter as Router, Link } from "react-router-dom";
 import BucketList from "./screens/bucket-list";
 import FileList from "./screens/file-list";
 import AlbumUpload from "./screens/album-upload";
