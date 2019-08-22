@@ -21,7 +21,10 @@ class BucketList extends Component {
       buckets.map(bucket => {
         let aliases = [];
         Object.keys(mappings).forEach(mapping => {
-          if (mappings[mapping] === bucket.name.toUpperCase()) {
+          if (
+            mappings[mapping] !== mapping &&
+            mappings[mapping] === bucket.name.toUpperCase()
+          ) {
             aliases.push(mapping);
           }
         });
