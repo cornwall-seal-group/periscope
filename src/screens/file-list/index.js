@@ -51,10 +51,9 @@ class FileList extends Component {
         {!loading && files.length > 0 && (
           <div className="row">
             {files.map(file => (
-              <div className="col col-4 mb-1">
+              <div key={file.name} className="col col-4 mb-1">
                 <img
                   style={{ width: "100%" }}
-                  key={file.name}
                   alt={file.name}
                   src={`${baseUrl}minio-images/${bucket}/${file.name}`}
                 />
