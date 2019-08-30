@@ -5,9 +5,8 @@ import AlbumUploadResults from "../album-upload-results";
 export default class BulkAlbumUploadResults extends React.Component {
   render() {
     const { results = [] } = this.props;
-    const seals = results["processed"] || {};
 
-    if (Object.keys(seals).length > 0) {
+    if (results.length > 0) {
       return (
         <>
           <h2>Seals recorded, click on the links to view the seals images</h2>
