@@ -1,8 +1,10 @@
 import React from "react";
 import { Route, HashRouter as Router, Link } from "react-router-dom";
+import SplashScreen from "./screens/splash";
 import BucketList from "./screens/bucket-list";
 import FileList from "./screens/file-list";
 import AlbumUpload from "./screens/album-upload";
+import BulkAlbumUpload from "./screens/bulk-album-upload";
 import ZipfileUpload from "./screens/zipfile-upload";
 import "./App.css";
 
@@ -45,26 +47,25 @@ function App() {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/bulk-album-upload" className="nav-link">
+                  Upload a Zip of Albums
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/zipfile-upload" className="nav-link">
-                  Upload a Zip
+                  Upload a Zip of Folders
                 </Link>
               </li>
             </ul>
           </div>
         </nav>
         <main>
-          <div className="section" id="index-banner">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col s12 m12 xl12">
-                  <Route exact path="/" component={BucketList} />
-                  <Route path="/album-upload" component={AlbumUpload} />
-                  <Route path="/zipfile-upload" component={ZipfileUpload} />
-                  <Route path="/seal/:bucket" component={FileList} />
-                </div>
-              </div>
-            </div>
-          </div>
+          <Route exact path="/" component={SplashScreen} />
+          <Route path="/buckets/:folder" component={BucketList} />
+          <Route path="/album-upload" component={AlbumUpload} />
+          <Route path="/bulk-album-upload" component={BulkAlbumUpload} />
+          <Route path="/zipfile-upload" component={ZipfileUpload} />
+          <Route path="/seal/:bucket/:folder" component={FileList} />
         </main>
       </div>
     </Router>

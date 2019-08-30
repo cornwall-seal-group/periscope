@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Dropzone from "../../components/dropzone";
 import "./upload.css";
 import Progress from "../../components/progress";
-import AlbumUploadResults from "../../components/album-upload-results";
+import BulkAlbumUploadResults from "../../components/bulk-album-upload-results";
 import Axios from "axios";
 import { remoteUrl, apKey } from "../../config.json";
 
-class AlbumUpload extends Component {
+class BulkAlbumUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,7 +79,7 @@ class AlbumUpload extends Component {
 
       Axios({
         method: "post",
-        url: `${remoteUrl}album-parser/api/v1/album/process`,
+        url: `${remoteUrl}album-parser/api/v1/album/process/bulk`,
         data: formData,
         config: {
           headers: {
@@ -169,11 +169,11 @@ class AlbumUpload extends Component {
     } = this.state;
     return (
       <>
-        <h1 className="text-info">Upload an Album</h1>
+        <h1 className="text-info">
+          Upload a Zip file containing multiple albums
+        </h1>
         <div className="border border-info p-4 m-4">
-          <span className="Title">
-            Add your PowerPoint album to be uploaded
-          </span>
+          <span className="Title">Add your ZIP file to be uploaded</span>
           <div className="Content">
             <div>
               <Dropzone
@@ -210,10 +210,10 @@ class AlbumUpload extends Component {
           </div>
         )}
 
-        <AlbumUploadResults results={results} />
+        <BulkAlbumUploadResults results={results} />
       </>
     );
   }
 }
 
-export default AlbumUpload;
+export default BulkAlbumUpload;
