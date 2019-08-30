@@ -14,7 +14,7 @@ class BulkAlbumUpload extends Component {
       uploading: false,
       uploadProgress: {},
       successfullUploaded: false,
-      results: {},
+      results: [],
       fileName: "",
       error: null
     };
