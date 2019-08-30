@@ -35,3 +35,12 @@
 .aliases {
   font-size: 0.6rem;
 }
+
+.splash-card {
+  min-width: 20rem;
+  min-height: 20rem;
+}
+
+.image-selected {
+  opacity: 0.3;
+}

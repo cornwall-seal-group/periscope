@@ -10,15 +10,20 @@ class BucketList extends Component {
     this.state = { loading: true, buckets: [], filter: "" };
   }
 
+  getFolderName = () => {
+    return this.props.match.params.folder || "originals";
+  };
+
   componentDidMount() {
+    const folder = this.getFolderName();
     const options = {
-      url: `${baseUrl}harbourmaster/api/v1/buckets`,
+      url: `${baseUrl}harbourmaster/api/v1/buckets/${folder}`,
       headers: {
         "x-api-key": harbourmasterApiKey
       }
     };
     Axios(options).then(({ data: buckets }) => {
-      buckets.map(bucket => {
+      buckets.forEach(bucket => {
         let aliases = [];
         Object.keys(mappings).forEach(mapping => {
           if (
@@ -43,6 +48,7 @@ class BucketList extends Component {
   render() {
     const { buckets, loading, filter } = this.state;
     const ignoredFolders = ["ALBUMS", "ZIPFILES"];
+    const folder = this.getFolderName();
     return (
       <>
         {loading && (
@@ -79,7 +85,7 @@ class BucketList extends Component {
                   <Link
                     key={bucket.name}
                     className="list-group-item d-flex justify-content-between"
-                    to={`seal/${bucket.name}`}
+                    to={`/seal/${bucket.name}/${folder}`}
                   >
                     <span className="text-left">
                       {bucket.name.toUpperCase()}
