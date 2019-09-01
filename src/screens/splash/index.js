@@ -10,13 +10,7 @@ class SplashScreen extends Component {
             className="col-4 p-3 splash-card card card-header"
             to={`buckets/originals`}
           >
-            View original images
-          </Link>
-          <Link
-            className="col-4 p-3 splash-card card card-header"
-            to={`buckets/pd_5f1582f6-1663-4bcc-9a55-b8dd472bbb2b`}
-          >
-            View Images from pattern detection extraction
+            View Seal Images
           </Link>
         </div>
         <div className="row justify-content-around pt-5">
