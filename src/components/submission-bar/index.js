@@ -79,7 +79,7 @@ class SubmissionBar extends Component {
               ))}
             </select>
           </div>
-          <button className="btn btn-info" onClick={this.sendImages}>
+          <button className="btn btn-info" onChange={this.sendImages}>
             Submit for body pose traning images{" "}
             <span className="badge badge-light">{num}</span>
           </button>
