@@ -26,7 +26,7 @@ class SubmissionBar extends Component {
   }
 
   onUpdateTagSelection = e => {
-    console.log(e.target.value);
+    this.setState({ selectedTag: e.target.value });
   };
   deleteImages = () => {
     const { selected } = this.props;
@@ -35,6 +35,7 @@ class SubmissionBar extends Component {
 
   sendImages = () => {
     const { seal, selected, clearSelection } = this.props;
+    const { selectedTag } = this.state;
     const options = {
       method: "POST",
       url: `${remoteUrl}pelican/api/v1/pose/images`,
@@ -43,7 +44,8 @@ class SubmissionBar extends Component {
       },
       data: {
         seal,
-        images: selected
+        images: selected,
+        tag: selectedTag
       }
     };
     Axios(options).then(({ data }) => {
