@@ -7,7 +7,8 @@ class SubmissionBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tags: []
+      tags: [],
+      selectedTag: ""
     };
   }
   componentDidMount() {
@@ -20,10 +21,13 @@ class SubmissionBar extends Component {
     };
     Axios(options).then(({ data }) => {
       console.log(data);
-      this.setState({ tags: data });
+      this.setState({ tags: data, selectedTag: data[0] });
     });
   }
 
+  onUpdateTagSelection = e => {
+    console.log(e.target.value);
+  };
   deleteImages = () => {
     const { selected } = this.props;
     console.log(selected);
@@ -63,7 +67,11 @@ class SubmissionBar extends Component {
           </button> */}
 
           <div>
-            <select id="classifier-tag" className="form-control">
+            <select
+              id="classifier-tag"
+              className="form-control"
+              onClick={this.onUpdateTagSelection}
+            >
               {tags.map(tag => (
                 <option value={tag.id}>
                   {tag.name} ({tag.imageCount})
