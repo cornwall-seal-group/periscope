@@ -70,7 +70,7 @@ class SubmissionBar extends Component {
             <select
               id="classifier-tag"
               className="form-control"
-              onClick={this.onUpdateTagSelection}
+              onChange={this.onUpdateTagSelection}
             >
               {tags.map(tag => (
                 <option value={tag.id}>
@@ -79,7 +79,7 @@ class SubmissionBar extends Component {
               ))}
             </select>
           </div>
-          <button className="btn btn-info" onChange={() => this.sendImages}>
+          <button className="btn btn-info" onClick={this.sendImages}>
             Submit for body pose traning images{" "}
             <span className="badge badge-light">{num}</span>
           </button>
