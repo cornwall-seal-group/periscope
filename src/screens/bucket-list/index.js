@@ -41,6 +41,7 @@ class BucketList extends Component {
       });
     });
   }
+
   onFilter = e => {
     this.setState({ filter: e.target.value });
   };

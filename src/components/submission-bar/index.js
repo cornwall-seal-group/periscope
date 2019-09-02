@@ -4,6 +4,26 @@ import { remoteUrl, pelicanApiKey } from "../../config.json";
 import "./submission-bar.css";
 
 class SubmissionBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tags: []
+    };
+  }
+  componentDidMount() {
+    const options = {
+      method: "GET",
+      url: `${remoteUrl}pelican/api/v1/pose/tags`,
+      headers: {
+        "x-api-key": pelicanApiKey
+      }
+    };
+    Axios(options).then(({ data }) => {
+      console.log(data);
+      this.setState({ tags: data });
+    });
+  }
+
   deleteImages = () => {
     const { selected } = this.props;
     console.log(selected);
@@ -13,7 +33,7 @@ class SubmissionBar extends Component {
     const { seal, selected, clearSelection } = this.props;
     const options = {
       method: "POST",
-      url: `${remoteUrl}pelican/api/v1/od/images`,
+      url: `${remoteUrl}pelican/api/v1/pose/images`,
       headers: {
         "x-api-key": pelicanApiKey
       },
@@ -29,6 +49,7 @@ class SubmissionBar extends Component {
   };
 
   render() {
+    const { tags } = this.state;
     const { selected = [] } = this.props;
     const isAdmin = true; //window.location.hash.indexOf("admin=true") > 0;
 
