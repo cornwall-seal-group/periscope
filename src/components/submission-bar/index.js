@@ -20,14 +20,36 @@ class SubmissionBar extends Component {
       }
     };
     Axios(options).then(({ data }) => {
-      console.log(data);
-      this.setState({ tags: data, selectedTag: data[0] });
+      this.setState({ tags: this.setTags(data), selectedTag: data[0] });
     });
   }
+
+  setTags = tags => {
+    tags.sort(function(a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+
+    tags.map(tag => {
+      const split = tag.split("-");
+
+      tag.name =
+        split[0].toUpperCase() + " " + split[1] + " " + split[2].toUpperCase();
+      return tag;
+    });
+
+    return tags;
+  };
 
   onUpdateTagSelection = e => {
     this.setState({ selectedTag: e.target.value });
   };
+
   deleteImages = () => {
     const { selected } = this.props;
     console.log(selected);
@@ -49,8 +71,7 @@ class SubmissionBar extends Component {
       }
     };
     Axios(options).then(({ data }) => {
-      console.log(data);
-      this.setState({ tags: data });
+      this.setState({ tags: this.setTags(data) });
       clearSelection();
     });
   };
