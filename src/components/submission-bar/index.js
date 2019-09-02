@@ -36,7 +36,7 @@ class SubmissionBar extends Component {
     });
 
     tags.map(tag => {
-      const split = tag.split("-");
+      const split = tag.name.split("-");
 
       tag.name =
         split[0].toUpperCase() + " " + split[1] + " " + split[2].toUpperCase();
