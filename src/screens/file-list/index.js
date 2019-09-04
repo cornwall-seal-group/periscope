@@ -65,7 +65,7 @@ class FileList extends Component {
     return (
       <>
         <h2 className="m-4">Seal - {seal}</h2>
-        <Link to="/">Back to all seals</Link>
+        <Link to="/seals">Back to all seals</Link>
         {loading && (
           <div className="d-flex justify-content-center">
             <div className="spinner-border text-info" role="status">
