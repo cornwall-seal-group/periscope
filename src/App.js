@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, HashRouter as Router, Link } from "react-router-dom";
 import SplashScreen from "./screens/splash";
-import BucketList from "./screens/bucket-list";
+import SealList from "./screens/seal-list";
 import FileList from "./screens/file-list";
 import AlbumUpload from "./screens/album-upload";
 import BulkAlbumUpload from "./screens/bulk-album-upload";
@@ -61,11 +61,11 @@ function App() {
         </nav>
         <main>
           <Route exact path="/" component={SplashScreen} />
-          <Route path="/buckets/:folder" component={BucketList} />
+          <Route exact path="/seals" component={SealList} />
+          <Route path="/seals/:seal" component={FileList} />
           <Route path="/album-upload" component={AlbumUpload} />
           <Route path="/bulk-album-upload" component={BulkAlbumUpload} />
           <Route path="/zipfile-upload" component={ZipfileUpload} />
-          <Route path="/seal/:bucket/:folder" component={FileList} />
         </main>
       </div>
     </Router>

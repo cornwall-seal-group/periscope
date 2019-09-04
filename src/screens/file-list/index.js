@@ -1,43 +1,40 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { baseUrl, harbourmasterApiKey } from "../../config.json";
+import { baseUrl, remoteUrl, harbourmasterApiKey } from "../../config.json";
 import SubmissionBar from "../../components/submission-bar";
 
 class FileList extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, files: [], selected: [] };
+    this.state = { loading: true, folders: [], selected: [], filter: "" };
   }
 
-  getBucketName = () => {
-    return this.props.match.params.bucket;
-  };
-
-  getFolderName = () => {
-    return this.props.match.params.folder || "originals";
+  getSealName = () => {
+    return this.props.match.params.seal;
   };
 
   componentDidMount() {
-    const name = this.getBucketName();
-    const folder = this.getFolderName();
+    const name = this.getSealName();
     const options = {
-      url: `${baseUrl}harbourmaster/api/v1/bucket/${name}/files/${folder}`,
+      url: `${remoteUrl}/api/v1/seals/${name}`,
       headers: {
         "x-api-key": harbourmasterApiKey
       }
     };
+
     Axios(options).then(({ data }) => {
-      let files = data;
-      if (!(data instanceof Array)) {
-        files = [data];
-      }
       this.setState({
-        files,
+        folders: data,
         loading: false
       });
     });
   }
+
+  filterImages = (filter = "") => {
+    console.log(filter);
+    this.setState({ filter });
+  };
 
   clickedImage = ({ name }) => {
     const { selected } = this.state;
@@ -48,7 +45,7 @@ class FileList extends Component {
     } else {
       selected.push(name);
     }
-
+    console.log(selected);
     this.setState({ selected });
   };
 
@@ -57,9 +54,9 @@ class FileList extends Component {
   };
 
   render() {
-    const { files, loading, selected } = this.state;
-    const bucket = this.getBucketName();
-    const seal = bucket.toUpperCase();
+    const { folders, loading, selected, filter } = this.state;
+    const sealName = this.getSealName();
+    const seal = sealName.toUpperCase();
 
     return (
       <>
@@ -73,28 +70,67 @@ class FileList extends Component {
           </div>
         )}
 
-        {!loading && files.length > 0 && (
-          <div className="row">
-            {files.map(file => (
-              <div key={file.name} className="col col-4 mb-1">
-                <img
-                  style={{ width: "100%", cursor: "pointer" }}
-                  className={
-                    selected.includes(file.name) ? "image-selected" : ""
-                  }
-                  alt={file.name}
-                  onClick={e => this.clickedImage({ name: file.name })}
-                  src={`${baseUrl}minio-images/${bucket}/${file.name}`}
-                />
+        {!loading && Object.keys(folders).length > 0 && (
+          <>
+            <div className="row">
+              <div className="col col-12 centerfull">
+                <div className="btn-group" role="group">
+                  <button
+                    type="button"
+                    key="all"
+                    className={`btn btn-info ${filter === "" ? "active" : ""}`}
+                    onClick={() => this.filterImages()}
+                  >
+                    All
+                  </button>
+                  {Object.keys(folders).map(folder => (
+                    <button
+                      type="button"
+                      key={folder}
+                      className={`btn btn-info ${
+                        filter === folder ? "active" : ""
+                      }`}
+                      onClick={() => this.filterImages(folder)}
+                    >
+                      {folder}{" "}
+                      <span className="badge badge-info">
+                        {folders[folder].length}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+            <div className="row">
+              {Object.keys(folders)
+                .filter(folder => filter === "" || folder === filter)
+                .map(folder => {
+                  return folders[folder].map(file => (
+                    <div key={`${folder}/${file}`} className="col col-4 mb-1">
+                      <img
+                        style={{ width: "100%", cursor: "pointer" }}
+                        className={
+                          selected.includes(`${folder}/${file}`)
+                            ? "image-selected"
+                            : ""
+                        }
+                        alt={`${folder}/${file}`}
+                        onClick={e =>
+                          this.clickedImage({ name: `${folder}/${file}` })
+                        }
+                        src={`${baseUrl}minio-images/${sealName}/${folder}/${file}`}
+                      />
+                    </div>
+                  ));
+                })}
+            </div>
+          </>
         )}
-        <SubmissionBar
+        {/* <SubmissionBar
           selected={selected}
           clearSelection={this.clearSelection}
-          seal={bucket}
-        />
+          seal={sealName}
+        /> */}
       </>
     );
   }
