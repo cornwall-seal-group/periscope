@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { remoteUrl, harbourmasterApiKey } from "../../config.json";
+import { harbourmasterUrl, harbourmasterApiKey } from "../../config.json";
 import mappings from "../../mappings/mappings.json";
 
 class SealList extends Component {
@@ -12,7 +12,7 @@ class SealList extends Component {
 
   componentDidMount() {
     const options = {
-      url: `${remoteUrl}/api/v1/seals`,
+      url: `${harbourmasterUrl}/api/v1/seals`,
       headers: {
         "x-api-key": harbourmasterApiKey
       }

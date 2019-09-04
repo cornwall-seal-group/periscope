@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { baseUrl, remoteUrl, harbourmasterApiKey } from "../../config.json";
+import {
+  baseUrl,
+  harbourmasterUrl,
+  harbourmasterApiKey
+} from "../../config.json";
 import SubmissionBar from "../../components/submission-bar";
 
 class FileList extends Component {
@@ -17,7 +21,7 @@ class FileList extends Component {
   componentDidMount() {
     const name = this.getSealName();
     const options = {
-      url: `${remoteUrl}/api/v1/seals/${name}`,
+      url: `${harbourmasterUrl}/api/v1/seals/${name}`,
       headers: {
         "x-api-key": harbourmasterApiKey
       }
