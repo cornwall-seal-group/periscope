@@ -6,10 +6,7 @@ class SplashScreen extends Component {
     return (
       <div className="container">
         <div className="row justify-content-around pt-5">
-          <Link
-            className="col-4 p-3 splash-card card card-header"
-            to={`buckets/originals`}
-          >
+          <Link className="col-4 p-3 splash-card card card-header" to={`seals`}>
             View Seal Images
           </Link>
         </div>

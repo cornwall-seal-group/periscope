@@ -1,42 +1,37 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { baseUrl, harbourmasterApiKey } from "../../config.json";
+import { remoteUrl, harbourmasterApiKey } from "../../config.json";
 import mappings from "../../mappings/mappings.json";
 
-class BucketList extends Component {
+class SealList extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, buckets: [], filter: "" };
+    this.state = { loading: true, seals: [], filter: "" };
   }
 
-  getFolderName = () => {
-    return this.props.match.params.folder || "originals";
-  };
-
   componentDidMount() {
-    const folder = this.getFolderName();
     const options = {
-      url: `${baseUrl}harbourmaster/api/v1/buckets/${folder}`,
+      url: `${remoteUrl}/api/v1/seals`,
       headers: {
         "x-api-key": harbourmasterApiKey
       }
     };
-    Axios(options).then(({ data: buckets }) => {
-      buckets.forEach(bucket => {
+    Axios(options).then(({ data: seals }) => {
+      Object.keys(seals).forEach(seal => {
         let aliases = [];
         Object.keys(mappings).forEach(mapping => {
           if (
             mappings[mapping] !== mapping &&
-            mappings[mapping] === bucket.name.toUpperCase()
+            mappings[mapping] === seal.toUpperCase()
           ) {
             aliases.push(mapping);
           }
         });
-        bucket.aliases = aliases;
+        seals[seal].aliases = aliases;
       });
       this.setState({
-        buckets,
+        seals,
         loading: false
       });
     });
@@ -47,9 +42,9 @@ class BucketList extends Component {
   };
 
   render() {
-    const { buckets, loading, filter } = this.state;
+    const { seals, loading, filter } = this.state;
     const ignoredFolders = ["ALBUMS", "ZIPFILES"];
-    const folder = this.getFolderName();
+
     return (
       <>
         {loading && (
@@ -60,7 +55,7 @@ class BucketList extends Component {
           </div>
         )}
 
-        {!loading && buckets.length > 0 && (
+        {!loading && Object.keys(seals).length > 0 && (
           <>
             <h4 className="m-4">Pick a seal to view its images</h4>
             <input
@@ -70,31 +65,26 @@ class BucketList extends Component {
               onKeyUp={this.onFilter}
             />
             <ul className="list-group">
-              {buckets
+              {Object.keys(seals)
                 .filter(
-                  bucket =>
-                    bucket.name.toUpperCase().indexOf(filter.toUpperCase()) >
-                      -1 ||
-                    bucket.aliases.filter(
+                  seal =>
+                    seal.toUpperCase().indexOf(filter.toUpperCase()) > -1 ||
+                    seals[seal].aliases.filter(
                       alias => alias.indexOf(filter.toUpperCase()) > -1
                     ).length > 0
                 )
-                .filter(
-                  bucket => !ignoredFolders.includes(bucket.name.toUpperCase())
-                )
-                .map(bucket => (
+                .filter(seal => !ignoredFolders.includes(seal.toUpperCase()))
+                .map(seal => (
                   <Link
-                    key={bucket.name}
+                    key={seal}
                     className="list-group-item d-flex justify-content-between"
-                    to={`/seal/${bucket.name}/${folder}`}
+                    to={`/seals/${seal}`}
                   >
-                    <span className="text-left">
-                      {bucket.name.toUpperCase()}
-                    </span>
+                    <span className="text-left">{seal.toUpperCase()}</span>
                     <span className="text-center aliases">
-                      {bucket.aliases.join(",").toUpperCase()}
+                      {seals[seal].aliases.join(",").toUpperCase()}
                     </span>
-                    <span className="text-right">{bucket.files}</span>
+                    <span className="text-right">{seals[seal].total}</span>
                   </Link>
                 ))}
             </ul>
@@ -105,4 +95,4 @@ class BucketList extends Component {
   }
 }
 
-export default BucketList;
+export default SealList;
