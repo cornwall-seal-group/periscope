@@ -4,7 +4,7 @@ import "./upload.css";
 import Progress from "../../components/progress";
 import AlbumUploadResults from "../../components/album-upload-results";
 import Axios from "axios";
-import { remoteUrl, apKey } from "../../config.json";
+import { albumParserUrl, apKey } from "../../config.json";
 
 class AlbumUpload extends Component {
   constructor(props) {
@@ -79,7 +79,7 @@ class AlbumUpload extends Component {
 
       Axios({
         method: "post",
-        url: `${remoteUrl}album-parser/api/v1/album/process`,
+        url: `${albumParserUrl}/api/v1/album/process`,
         data: formData,
         config: {
           headers: {
@@ -167,6 +167,7 @@ class AlbumUpload extends Component {
       files,
       error
     } = this.state;
+
     return (
       <>
         <h1 className="text-info">Upload an Album</h1>
