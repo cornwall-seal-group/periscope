@@ -43,10 +43,10 @@ class AlbumList extends Component {
 
         {!loading && ppts.length > 0 && (
           <>
-            <h4 className="m-4">View the ppts found in each Powerpoint</h4>
+            <h4 className="m-4">Click to view the seals found in each album</h4>
             <input
               type="text"
-              placeholder="Filter powerpoints..."
+              placeholder="Filter albums..."
               className="w-100 my-3 p-2"
               onKeyUp={this.onFilter}
             />
