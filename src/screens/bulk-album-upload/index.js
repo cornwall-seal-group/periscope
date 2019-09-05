@@ -4,7 +4,7 @@ import "./upload.css";
 import Progress from "../../components/progress";
 import BulkAlbumUploadResults from "../../components/bulk-album-upload-results";
 import Axios from "axios";
-import { remoteUrl, apKey } from "../../config.json";
+import { albumParserUrl, apKey } from "../../config.json";
 
 class BulkAlbumUpload extends Component {
   constructor(props) {
@@ -79,7 +79,7 @@ class BulkAlbumUpload extends Component {
 
       Axios({
         method: "post",
-        url: `${remoteUrl}album-parser/api/v1/album/process/bulk`,
+        url: `${albumParserUrl}/api/v1/album/process/bulk`,
         data: formData,
         config: {
           headers: {
