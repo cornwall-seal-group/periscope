@@ -6,6 +6,8 @@ import FileList from "./screens/file-list";
 import AlbumUpload from "./screens/album-upload";
 import BulkAlbumUpload from "./screens/bulk-album-upload";
 import ZipfileUpload from "./screens/zipfile-upload";
+import AlbumList from "./screens/album-list";
+import AlbumDetails from "./screens/album-details";
 import "./App.css";
 
 function App() {
@@ -56,6 +58,12 @@ function App() {
                   Upload a Zip of Folders
                 </Link>
               </li>
+
+              <li className="nav-item">
+                <Link to="/albums" className="nav-link">
+                  View uploaded albums
+                </Link>
+              </li>
             </ul>
           </div>
         </nav>
@@ -66,6 +74,9 @@ function App() {
           <Route path="/album-upload" component={AlbumUpload} />
           <Route path="/bulk-album-upload" component={BulkAlbumUpload} />
           <Route path="/zipfile-upload" component={ZipfileUpload} />
+
+          <Route exact path="/albums" component={AlbumList} />
+          <Route path="/albums/:album" component={AlbumDetails} />
         </main>
       </div>
     </Router>
