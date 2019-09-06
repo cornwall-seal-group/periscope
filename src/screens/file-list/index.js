@@ -130,11 +130,11 @@ class FileList extends Component {
             </div>
           </>
         )}
-        {/* <SubmissionBar
+        <SubmissionBar
           selected={selected}
           clearSelection={this.clearSelection}
           seal={sealName}
-        /> */}
+        />
       </>
     );
   }
