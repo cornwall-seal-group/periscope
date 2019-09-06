@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import { harbourmasterUrl, harbourmasterApiKey } from "../../config.json";
-import mappings from "../../mappings/mappings.json";
+import sealAliases from "../../mappings/aliases.json";
 
 class SealList extends Component {
   constructor(props) {
@@ -20,14 +20,9 @@ class SealList extends Component {
     Axios(options).then(({ data: seals }) => {
       Object.keys(seals).forEach(seal => {
         let aliases = [];
-        Object.keys(mappings).forEach(mapping => {
-          if (
-            mappings[mapping] !== mapping &&
-            mappings[mapping] === seal.toUpperCase()
-          ) {
-            aliases.push(mapping);
-          }
-        });
+        if (seal in sealAliases) {
+          aliases = sealAliases[seal];
+        }
         seals[seal].aliases = aliases;
       });
       this.setState({
