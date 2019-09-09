@@ -54,6 +54,31 @@ class SealList extends Component {
     });
   }
 
+  setTags = tags => {
+    tags.sort(function(a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+
+    tags.map(tag => {
+      const split = tag.name.split("-");
+
+      tag.name =
+        split[0].toUpperCase() +
+        " " +
+        split[1] +
+        (split[2] ? " " + split[2].toUpperCase() : "");
+      return tag;
+    });
+
+    return tags;
+  };
+
   onFilter = e => {
     this.setState({ filter: e.target.value });
   };
