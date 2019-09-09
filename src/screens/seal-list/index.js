@@ -126,7 +126,7 @@ class SealList extends Component {
                 )
                 .filter(seal => !ignoredFolders.includes(seal.toUpperCase()))
                 .filter(
-                  seal => selectedTag !== "" && selectedTag in seals[seal]
+                  seal => selectedTag === "" || selectedTag in seals[seal]
                 )
                 .map(seal => (
                   <Link
