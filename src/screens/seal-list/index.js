@@ -87,7 +87,7 @@ class SealList extends Component {
                     type="button"
                     key="all"
                     className={`btn btn-outline-info ${
-                      filter === "" ? "active" : ""
+                      selectedTag === "" ? "active" : ""
                     }`}
                     onClick={() => this.filterSealsByTag()}
                   >
@@ -98,7 +98,7 @@ class SealList extends Component {
                       type="button"
                       key={tag.name}
                       className={`btn btn-outline-info ${
-                        filter === tag.name ? "active" : ""
+                        selectedTag === tag.name ? "active" : ""
                       }`}
                       onClick={() => this.filterSealsByTag(tag.name)}
                     >
