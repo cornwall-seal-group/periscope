@@ -1,13 +1,24 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { harbourmasterUrl, harbourmasterApiKey } from "../../config.json";
+import {
+  remoteUrl,
+  pelicanApiKey,
+  harbourmasterUrl,
+  harbourmasterApiKey
+} from "../../config.json";
 import sealAliases from "../../mappings/aliases.json";
 
 class SealList extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, seals: [], filter: "" };
+    this.state = {
+      loading: true,
+      seals: [],
+      filter: "",
+      tags: [],
+      selectedTag: ""
+    };
   }
 
   componentDidMount() {
@@ -30,14 +41,29 @@ class SealList extends Component {
         loading: false
       });
     });
+
+    const tagOptions = {
+      method: "GET",
+      url: `${remoteUrl}pelican/api/v1/pose/tags`,
+      headers: {
+        "x-api-key": pelicanApiKey
+      }
+    };
+    Axios(tagOptions).then(({ data }) => {
+      this.setState({ tags: this.setTags(data) });
+    });
   }
 
   onFilter = e => {
     this.setState({ filter: e.target.value });
   };
 
+  filterSealsByTag = (selectedTag = "") => {
+    this.setState({ selectedTag });
+  };
+
   render() {
-    const { seals, loading, filter } = this.state;
+    const { seals, loading, filter, tags, selectedTag = "" } = this.state;
     const ignoredFolders = ["ALBUMS", "ZIPFILES"];
 
     return (
@@ -53,6 +79,39 @@ class SealList extends Component {
         {!loading && Object.keys(seals).length > 0 && (
           <>
             <h4 className="m-4">Pick a seal to view its images</h4>
+
+            <div className="row">
+              <div className="col col-12 centerfull my-2">
+                <div className="btn-group" role="group">
+                  <button
+                    type="button"
+                    key="all"
+                    className={`btn btn-outline-info ${
+                      filter === "" ? "active" : ""
+                    }`}
+                    onClick={() => this.filterSealsByTag()}
+                  >
+                    All
+                  </button>
+                  {Object.keys(tags).map(tag => (
+                    <button
+                      type="button"
+                      key={tag}
+                      className={`btn btn-outline-info ${
+                        filter === tag ? "active" : ""
+                      }`}
+                      onClick={() => this.filterSealsByTag(tag)}
+                    >
+                      {tag}{" "}
+                      <span className="badge badge-info">
+                        {tags[tag].length}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <input
               type="text"
               placeholder="Filter seals..."
@@ -69,6 +128,9 @@ class SealList extends Component {
                     ).length > 0
                 )
                 .filter(seal => !ignoredFolders.includes(seal.toUpperCase()))
+                .filter(
+                  seal => selectedTag !== "" && selectedTag in seals[seal]
+                )
                 .map(seal => (
                   <Link
                     key={seal}
@@ -79,7 +141,11 @@ class SealList extends Component {
                     <span className="text-center aliases">
                       {seals[seal].aliases.join(",").toUpperCase()}
                     </span>
-                    <span className="text-right">{seals[seal].total}</span>
+                    <span className="text-right">
+                      {selectedTag !== ""
+                        ? seals[seal][selectedTag]
+                        : seals[seal].total}
+                    </span>
                   </Link>
                 ))}
             </ul>

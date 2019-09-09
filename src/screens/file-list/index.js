@@ -36,7 +36,6 @@ class FileList extends Component {
   }
 
   filterImages = (filter = "") => {
-    console.log(filter);
     this.setState({ filter });
   };
 
@@ -77,7 +76,7 @@ class FileList extends Component {
         {!loading && Object.keys(folders).length > 0 && (
           <>
             <div className="row">
-              <div className="col col-12 centerfull">
+              <div className="col col-12 centerfull my-2">
                 <div className="btn-group" role="group">
                   <button
                     type="button"
