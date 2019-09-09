@@ -118,19 +118,16 @@ class SealList extends Component {
                   >
                     All
                   </button>
-                  {Object.keys(tags).map(tag => (
+                  {tags.map(tag => (
                     <button
                       type="button"
-                      key={tag}
+                      key={tag.name}
                       className={`btn btn-outline-info ${
-                        filter === tag ? "active" : ""
+                        filter === tag.name ? "active" : ""
                       }`}
-                      onClick={() => this.filterSealsByTag(tag)}
+                      onClick={() => this.filterSealsByTag(tag.name)}
                     >
-                      {tag}{" "}
-                      <span className="badge badge-info">
-                        {tags[tag].length}
-                      </span>
+                      {tag.name}
                     </button>
                   ))}
                 </div>
