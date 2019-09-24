@@ -132,7 +132,7 @@ class SealList extends Component {
                 .map(seal => (
                   <Link
                     key={seal}
-                    className="list-group-item-action d-flex justify-content-between"
+                    className="list-group-item list-group-item-action d-flex justify-content-between"
                     to={`/seals/${seal}`}
                   >
                     <span className="text-left">{seal.toUpperCase()}</span>

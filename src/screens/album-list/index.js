@@ -58,7 +58,7 @@ class AlbumList extends Component {
                 .map(ppt => (
                   <Link
                     key={ppt}
-                    className="list-group-item-action d-flex justify-content-between"
+                    className="list-group-item list-group-item-action d-flex justify-content-between"
                     to={`/albums/${ppt}`}
                   >
                     {ppt}
