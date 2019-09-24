@@ -31,8 +31,9 @@ class SealList extends Component {
     Axios(options).then(({ data: seals }) => {
       Object.keys(seals).forEach(seal => {
         let aliases = [];
-        if (seal in sealAliases) {
-          aliases = sealAliases[seal];
+        const uSeal = seal.toUpperCase();
+        if (uSeal in sealAliases) {
+          aliases = sealAliases[uSeal];
         }
         seals[seal].aliases = aliases;
       });
@@ -131,7 +132,7 @@ class SealList extends Component {
                 .map(seal => (
                   <Link
                     key={seal}
-                    className="list-group-item d-flex justify-content-between"
+                    className="list-group-item-action d-flex justify-content-between"
                     to={`/seals/${seal}`}
                   >
                     <span className="text-left">{seal.toUpperCase()}</span>
