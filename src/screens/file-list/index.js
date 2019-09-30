@@ -121,7 +121,7 @@ class FileList extends Component {
                         onClick={e =>
                           this.clickedImage({ name: `${folder}/${file}` })
                         }
-                        src={`${baseUrl}minio-images/${sealName}/${folder}/${file}`}
+                        src={`${baseUrl}seal-images/${sealName}/${folder}/${file}`}
                       />
                     </div>
                   ));
