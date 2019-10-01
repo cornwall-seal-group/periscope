@@ -12,7 +12,7 @@ class SplashScreen extends Component {
               alt="seal"
               className="Icon"
               src="head-right.svg"
-              style={{ height: "100px", width: "100px" }}
+              style={{ height: "100%", width: "100%" }}
             />
           </Link>
         </div>
