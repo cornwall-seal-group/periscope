@@ -10,7 +10,6 @@ class SplashScreen extends Component {
             View Seal Images
             <img
               alt="seal"
-              className="Icon"
               src="head-right.svg"
               style={{ height: "100%", width: "100%" }}
             />
