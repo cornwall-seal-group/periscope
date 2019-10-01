@@ -8,6 +8,12 @@ class SplashScreen extends Component {
         <div className="row justify-content-around pt-5">
           <Link className="col-4 p-3 splash-card card card-header" to={`seals`}>
             View Seal Images
+            <img
+              alt="seal"
+              className="Icon"
+              src="head-right.svg"
+              style={{ height: "100px", width: "100px" }}
+            />
           </Link>
         </div>
         <div className="row justify-content-around pt-5">
